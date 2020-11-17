@@ -35,7 +35,7 @@ def handle(client):
             clients.remove(client)
             client.close()
             nickname = nicknames[index]
-            broadcast('{} left!'.format(nickname).encode('ascii'))
+            broadcast(f'{nickname} left!'.encode('ascii'))
             nicknames.remove(nickname)
             break
 
@@ -55,8 +55,8 @@ def receive():
 
         # Print And Broadcast Nickname
         print(f"Nickname is {nickname}")
-        broadcast("{} joined!".format(nickname).encode('ascii'))
-        client.send('Connected to server!'.encode('ascii'))
+        broadcast(f"{nickname} joined!".encode('ascii'))
+        client.send('CONNECTION SUCCESSFUL!'.encode('ascii'))
 
         # Start Handling Thread For Client
         thread = threading.Thread(target=handle, args=(client,))
