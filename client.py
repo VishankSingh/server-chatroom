@@ -33,7 +33,7 @@ def receive():
 # Sending Messages To Server
 def write():
     while True:
-        message = '{}: {}'.format(nickname, input(''))
+        message = f'{nickname}: {input('')}'
         client.send(message.encode('ascii'))            
 
 # Starting Threads For Listening And Writing
