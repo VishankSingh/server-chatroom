@@ -28,18 +28,20 @@ def server_command():
     while True:
         server_command_input = input("SERVER OWNER: ")
         
+        if server_command_input.startswith('/')
+            if server_command_input.startswith('/kick'):
+                name = server_command_input[6:]
+                if name in nicknames:
+                    name_index = nicknames.index(name)
+                    client_to_kick = clients[name_index]
+                    clients.remove(client_to_kick)
+                    client_to_kick.send("KICKED".encode('ascii'))
+                    client_to_kick.close()
+                    nicknames.remove(name)
+                    broadcast(f"{name} WAS KICKED BY THE SERVER!".encode('ascii'))
 
-        if server_command_input.startswith('/kick'):
-            name = server_command_input[6:]
-            print(name)
-            if name in nicknames:
-                name_index = nicknames.index(name)
-                client_to_kick = clients[name_index]
-                clients.remove(client_to_kick)
-                client_to_kick.send("KICKED".encode('ascii'))
-                client_to_kick.close()
-                nicknames.remove(name)
-                broadcast(f"{name} WAS KICKED BY THE SERVER!".encode('ascii'))
+            if server_command_input.startswith('/active'):
+                print(f"[ACTIVE CONNECTIONS] {threading.activeCount()}")
 
 
                 
@@ -93,10 +95,6 @@ def receive():
 
         server_command_thread = threading.Thread(target=server_command)
         server_command_thread.start() 
-
-
-
-          
 
 receive()   
 
