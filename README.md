@@ -1,4 +1,4 @@
-# server-chatroom
+# Server-chatroom
 
 Start the server and connect as many clients as you want.
 
