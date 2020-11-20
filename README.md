@@ -2,5 +2,5 @@
 
 Start the server and connect as many clients as you want.
 
-## New feature: 
+# New feature: 
 
