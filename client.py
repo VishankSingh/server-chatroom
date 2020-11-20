@@ -6,8 +6,8 @@ nickname = input("Choose your nickname: ")
 
 
 PORT = 55550
-SERVER = socket.gethostbyname(socket.gethostname())
-ADDR = (SERVER, PORT)
+IP = socket.gethostbyname(socket.gethostname())
+ADDR = (IP, PORT)
 
 # Connecting To Server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
