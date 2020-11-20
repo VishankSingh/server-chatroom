@@ -5,7 +5,7 @@ import threading
 nickname = input("Choose your nickname: ")
 
 
-PORT = 55554
+PORT = 55550
 SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
 
@@ -22,6 +22,10 @@ def receive():
             message = client.recv(1024).decode('ascii')
             if message == 'NICK':
                 client.send(nickname.encode('ascii'))
+            elif message == 'KICKED':
+                print('YOU WERE KICKED OUT BY THE SERVER!')
+                client.close()
+                break
             else:
                 print(message)
         except:
@@ -33,8 +37,12 @@ def receive():
 # Sending Messages To Server
 def write():
     while True:
-        message = f"{nickname}: {input('')}"
-        client.send(message.encode('ascii'))            
+        try:
+            message = f"{nickname}: {input('')}"
+            client.send(message.encode('ascii'))            
+
+        except:
+            print('YOU CANNOT SEND MESSAGES')
 
 # Starting Threads For Listening And Writing
 receive_thread = threading.Thread(target=receive)
