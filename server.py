@@ -14,9 +14,9 @@ server.listen()
 print("[STARTING] server is starting...")
 print(f"[LISTENING] Server is listening on {SERVER}")
 
-# Lists For Clients and Their Nicknames
+# Lists For Clients and Their usernames
 clients = []
-nicknames = []
+usernames = []
 
 # Sending Messages To All Connected Clients
 def broadcast(message):
@@ -28,23 +28,28 @@ def server_command():
     while True:
         server_command_input = input("SERVER OWNER: ")
         
-        if server_command_input.startswith('/')
-            if server_command_input.startswith('/kick'):
-                name = server_command_input[6:]
-                if name in nicknames:
-                    name_index = nicknames.index(name)
-                    client_to_kick = clients[name_index]
-                    clients.remove(client_to_kick)
-                    client_to_kick.send("KICKED".encode('ascii'))
-                    client_to_kick.close()
-                    nicknames.remove(name)
-                    broadcast(f"{name} WAS KICKED BY THE SERVER!".encode('ascii'))
-
-            if server_command_input.startswith('/active'):
-                print(f"[ACTIVE CONNECTIONS] {threading.activeCount()}")
-
+        if server_command_input.startswith('/kick'):
+            name = server_command_input[6:]
+            if name in usernames:
+                name_index = usernames.index(name)
+                client_to_kick = clients[name_index]
+                clients.remove(client_to_kick)
+                client_to_kick.send("KICKED".encode('ascii'))
+                client_to_kick.close()
+                usernames.remove(name)
+                broadcast(f"{name} WAS KICKED BY THE SERVER!".encode('ascii'))
 
                 
+
+
+        elif server_command_input.startswith('/active'):
+            print(f"[ACTIVE CONNECTIONS] {threading.activeCount()}")
+
+        elif server_command_input.startswith('/close'):
+            print("[SERVER CLOSED]")
+            server.close()
+            exit()
+
         else:
             broadcast(f"SERVER OWNER: {server_command_input}".encode('ascii'))
 
@@ -66,27 +71,29 @@ def handle(client):
                     index = clients.index(client)
                     clients.remove(client)
                     client.close()
-                    nickname = nicknames[index]
-                    broadcast(f'{nickname} left!'.encode('ascii'))
-                    nicknames.remove(nickname)
+                    username = usernames[index]
+                    broadcast(f'{username} left!'.encode('ascii'))
+                    usernames.remove(username)
                     break
 
 # Receiving / Listening Function
 def receive():
     while True:
         # Accept Connection
+
+                
         client, address = server.accept()
             
-        # Request And Store Nickname
-        client.send('NICK'.encode('ascii'))
-        nickname = client.recv(1024).decode('ascii')
-        nicknames.append(nickname)
+        # Request And Store username
+        client.send('USER'.encode('ascii'))
+        username = client.recv(1024).decode('ascii')
+        usernames.append(username)
         clients.append(client)
 
-        # Print And Broadcast Nickname
-        print(f"\n[NEW CONNECTION] connected with {str(address)} with the nickname {nickname}")
+        # Print And Broadcast username
+        print(f"\n[NEW CONNECTION] connected with {str(address)} with the username {username}")
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount()}")
-        broadcast(f"{nickname} joined!".encode('ascii'))
+        broadcast(f"{username} joined!".encode('ascii'))
         client.send('CONNECTION SUCCESSFUL!'.encode('ascii'))
 
         # Start Handling Thread For Client
@@ -95,6 +102,10 @@ def receive():
 
         server_command_thread = threading.Thread(target=server_command)
         server_command_thread.start() 
+
+
+
+          
 
 receive()   
 
