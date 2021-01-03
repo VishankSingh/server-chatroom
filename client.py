@@ -7,7 +7,7 @@ username = input("Choose your username: ")
 CONNECTION = input('Input IP address and port in the format (IP, PORT) without parentheses')
 
 PORT = CONNECTION.split(',')[1].strip()
-IP = C
+IP = CONNECTION.split(',')[0].strip()
 ADDR = (IP, PORT)
 
 # Connecting To Server
