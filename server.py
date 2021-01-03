@@ -12,7 +12,7 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 server.listen()
 print("[STARTING] server is starting...")
-print(f"[LISTENING] Server is listening on {SERVER}")
+print(f"[LISTENING] Server is listening on {ADDR}")
 
 # Lists For Clients and Their usernames
 clients = []
