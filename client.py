@@ -6,8 +6,8 @@ username = input("Choose your username: ")
 
 CONNECTION = input('Input IP address and port in the format (IP, PORT) without parentheses')
 
-PORT = 55550
-IP = socket.gethostbyname(socket.gethostname())
+PORT = CONNECTION.split(',')[1].strip()
+IP = C
 ADDR = (IP, PORT)
 
 # Connecting To Server
