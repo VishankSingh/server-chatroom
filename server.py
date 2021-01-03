@@ -46,6 +46,7 @@ def server_command():
             print(f"[ACTIVE CONNECTIONS] {threading.activeCount()}")
 
         elif server_command_input.startswith('/close'):
+            broadcast('SERVER IS CLOSED')
             print("[SERVER CLOSED]")
             server.close()
             exit()
